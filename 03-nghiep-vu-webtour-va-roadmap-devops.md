@@ -58,14 +58,14 @@ Tai lieu nay tong hop toan bo nghiep vu WebTour theo 3 nhom:
 
 | Nghiep vu | Service chinh | Cong nghe de xuat |
 |---|---|---|
-| Dang nhap, phan quyen | Auth Service | Node.js, MongoDB, Redis, JWT/OAuth2 |
-| Tim kiem/filter tour | Catalog Service | MongoDB, Elasticsearch/OpenSearch, Redis |
+| Dang nhap, phan quyen | Identity Service | Node.js, PostgreSQL/MongoDB, Redis, JWT/OAuth2 |
+| CRUD tour/category/destination/promo/review | Core Service | Node.js, PostgreSQL + MongoDB |
+| Tim kiem/filter tour | Search Service | Elasticsearch/OpenSearch, Redis |
 | Dat tour va giu cho | Booking Service | PostgreSQL, Redis Lock, RabbitMQ/Kafka |
 | Thanh toan | Payment Service | PostgreSQL, Gateway SDK, Retry + Circuit Breaker |
-| Danh gia | Review Service | MongoDB, moderation workflow |
-| Chat + thong bao | Chat/Notification Service | Socket.IO, MongoDB, Nodemailer, BullMQ |
+| Chat + ticket ho tro | Support Service | Socket.IO, MongoDB, queue worker |
 | Tich diem/khuyen mai | Loyalty/Promotion Service | PostgreSQL, Redis lock/counter, Event bus |
-| Goi y thong minh | Recommendation Service | Event stream, Elasticsearch, ranking pipeline |
+| Goi y thong minh | Recommendation Service (pha sau) | Event stream, Elasticsearch, ranking pipeline |
 
 ## 5. Nghiệp vu trong tam can giai quyet bang techstack DevOps
 
@@ -114,7 +114,7 @@ Deliverables:
 
 ### Giai doan 1 - Nen tang Microservices + DevOps (2 tuan)
 - Dung API Gateway.
-- Dockerize service dau tien.
+- Dockerize Identity va Core service dau tien.
 - Tao CI pipeline (lint, test, build image).
 - Setup metrics/log co ban.
 
@@ -125,7 +125,7 @@ Deliverables:
 
 ### Giai doan 2 - Tach Auth + Catalog (2-3 tuan)
 - Tach login/role service rieng.
-- Tach CRUD/search tour service rieng.
+- Tach Core Service (catalog/promo/review) va Search Service rieng.
 - Them Redis cache, Elasticsearch index.
 
 Deliverables:
@@ -141,13 +141,13 @@ Deliverables:
 - Dat tour hoat dong theo event.
 - Co test case payment fail -> booking cancel.
 
-### Giai doan 4 - Chat/Notification + Review (2 tuan)
-- Tach chat realtime va email worker.
-- Tach review service va moderation.
+### Giai doan 4 - Support + Analytics (2 tuan)
+- Tach support realtime (chat + ticket).
+- Trien khai analytics pipeline va dashboard.
 
 Deliverables:
-- Response dat tour nhanh hon do thong bao async.
-- Review loi khong anh huong booking.
+- Response ho tro nhanh va co ticket lifecycle.
+- Co dashboard KPI booking-payment.
 
 ### Giai doan 5 - Nghiep vu nang cao (3-5 tuan)
 - Loyalty, wishlist, flash sale, recommendation.
@@ -174,13 +174,13 @@ Deliverables:
 
 ## 9. Backlog uu tien cho nhom
 - P1:
-  - API Gateway + Auth + Catalog.
+  - API Gateway + Identity + Core + Search.
   - Docker Compose + CI can ban.
 - P2:
   - Booking + Payment + Saga + Redis lock.
   - Monitoring dashboard.
 - P3:
-  - Chat/Notification async.
+  - Support service (chat + ticket).
   - Loyalty, wishlist, recommendation.
 
 ## 10. Ghi chu de bao ve do an

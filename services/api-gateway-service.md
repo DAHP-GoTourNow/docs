@@ -15,11 +15,13 @@ Muc tieu:
 
 ### 2.1 Routing va service discovery
 - Route theo path prefix:
-  - /auth -> Identity/Auth Service.
-  - /core -> Core Business Service.
-  - /payment -> Payment Integration Service.
-  - /notify -> Notification Chat Service.
-  - /analytics -> Analytics Reporting Service.
+  - /auth -> Identity Service.
+  - /core -> Core Service.
+  - /search -> Search Service.
+  - /booking -> Booking Service.
+  - /payment -> Payment Service.
+  - /support -> Support Service.
+  - /analytics -> Analytics Service (pha sau).
 - Ho tro versioning endpoint:
   - /api/v1/...
 
@@ -63,9 +65,9 @@ Muc tieu:
 4. Tra response ve client kem correlationId.
 
 ### Dat tour
-1. Client goi /api/v1/core/bookings.
+1. Client goi /api/v1/booking.
 2. Gateway check JWT + role.
-3. Gateway route sang Core Service.
+3. Gateway route sang Booking Service.
 4. Neu payment callback, gateway route sang Payment Service theo webhook path.
 
 ## 6. Techstack de xuat

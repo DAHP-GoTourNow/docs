@@ -117,11 +117,12 @@ Ly do:
 
 ### 5.2 Chot boundary theo nghiep vu that su dang co
 - Boundary ban dau:
-  - Identity Auth Service.
-  - Core Service (catalog + booking + content + promotion can ban).
-  - Payment Integration Service.
-  - Notification Chat Service.
-  - Analytics Reporting Service.
+  - Identity Service.
+  - Core Service (catalog + promotion + review).
+  - Search Service.
+  - Booking Service.
+  - Payment Service.
+  - Support Service (chat + ticket).
 
 Ly do:
 - Dung voi module dang ton tai trong code, de tach dan khong vo flow cu.
@@ -156,34 +157,46 @@ Them moi bat buoc:
 ### 6.2 Core Service
 Di chuyen:
 - Tour, Destination, TourImage, TourPackage.
-- Booking, BookingDetail.
-- Contact va module content.
+- Contact va module content catalog.
 
 Them moi bat buoc:
-- CRUD loai tour, huong dan vien, khach san mapLink.
-- Inventory theo departure, reservation TTL.
-- Tour relation day du (itinerary, add-on, hot tour).
+- TourCategory, Destination, Departure, PriceConfig.
+- Promotion, Review, ReviewMedia, ReviewComment.
+- Chuan hoa Tour-TourCategory, Tour-Departure, Tour-Promotion.
 
-### 6.3 Payment Integration Service (moi)
+### 6.3 Search Service (moi)
+Them moi bat buoc:
+- Tach read model cho tim kiem tour.
+- Dong bo index tu Core Service qua event.
+- Cache ket qua tim kiem hot voi Redis.
+
+### 6.4 Booking Service (tach rieng)
+Di chuyen:
+- Booking, BookingDetail.
+
+Them moi bat buoc:
+- Passenger, BookingNote, Cancellation.
+- reservation lock TTL de chong overbooking.
+- Luu snapshot gia va promotion tai thoi diem dat.
+
+### 6.5 Payment Service (moi)
 Them moi bat buoc:
 - Tao payment intent.
 - Webhook verify signature.
 - Reconciliation va refund flow.
 - Event PaymentSucceeded, PaymentFailed.
 
-### 6.4 Notification Chat Service
+### 6.6 Support Service
 Di chuyen:
 - Chat.js + chatRoutes.js.
+- Contact.js -> SupportTicket.
 
 Them moi bat buoc:
 - Message pagination.
-- Notification template + retry queue.
-- Email/push theo su kien booking va payment.
+- Conversation, Message, SupportTicket theo model moi.
+- Tien trinh xu ly ticket theo status.
 
-### 6.5 Analytics Reporting Service
-Di chuyen:
-- Endpoint thong ke tu bookingRoutes.
-
+### 6.7 Analytics Reporting Service (pha sau)
 Them moi bat buoc:
 - Funnel search -> detail -> booking -> payment.
 - Dashboard KPI cho admin.
@@ -203,17 +216,18 @@ Them moi bat buoc:
 
 ### Pha 2 - Catalog va Core Booking can ban
 - Refactor search bo N+1.
-- Chuan hoa model tour/departure.
-- Gioi han booking flow theo schema moi.
+- Chuan hoa model tour/category/destination/departure/priceConfig.
+- Tach Search service cho read-heavy query.
 
 ### Pha 3 - Payment + Reservation lock
+- Tach Booking service rieng.
 - Them payment service.
 - Them Redis lock/TTL giu cho.
 - Dung saga cho booking-payment.
 
-### Pha 4 - Chat Notification + Analytics + nang cao
-- Tach chat + notification jobs.
-- Tach analytics pipeline.
+### Pha 4 - Support + Analytics + nang cao
+- Tach Support service (chat + ticket).
+- Tach analytics pipeline (pha sau).
 - Bo sung loyalty, review, wishlist, recommendation.
 
 ## 8. Danh sach bo sung bat buoc (gap closure checklist)
@@ -227,7 +241,7 @@ Them moi bat buoc:
 
 ## 9. Tieu chi done cho qua trinh migration
 - Tat ca request frontend di qua Gateway, khong goi truc tiep monolith.
-- Auth, Core, Payment, Notification, Analytics deploy doc lap.
+- Identity, Core, Search, Booking, Payment, Support deploy doc lap.
 - Booking khong con tao du lieu mo coi va khong overbooking.
 - Payment callback khong tao duplicate transaction.
 - Co dashboard p95 latency, error rate, booking success rate.

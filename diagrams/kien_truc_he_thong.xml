@@ -1,0 +1,98 @@
+<mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <mxCell id="gateway" value="&lt;b&gt;API Gateway&lt;/b&gt;&lt;br&gt;Routing, Auth (JWT), Rate Limiting, Correlation ID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+      <mxGeometry x="350" y="40" width="900" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="cache" value="&lt;b&gt;Redis Cache&lt;/b&gt;&lt;br&gt;Inventory Lock, Search Cache" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="80" y="30" width="200" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc_identity" value="&lt;b&gt;Identity Service&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="50" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc_core" value="&lt;b&gt;Core Service&lt;/b&gt;&lt;br&gt;(Catalog, Promo, Review)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="250" y="200" width="180" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc_search" value="&lt;b&gt;Search Service&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="490" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc_booking" value="&lt;b&gt;Booking Service&lt;/b&gt;&lt;br&gt;(Core/Saga)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="690" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc_payment" value="&lt;b&gt;Payment Service&lt;/b&gt;&lt;br&gt;(Idempotent)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="890" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc_support" value="&lt;b&gt;Support Service&lt;/b&gt;&lt;br&gt;(Chat &amp;amp; Tickets)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="1090" y="200" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_id" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;users, roles" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="70" y="320" width="100" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_core_pg" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;tours, promo" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="240" y="320" width="90" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_core_mg" value="&lt;b&gt;MongoDB&lt;/b&gt;&lt;br&gt;reviews, info" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="350" y="320" width="80" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_search" value="&lt;b&gt;Elasticsearch&lt;/b&gt;&lt;br&gt;tours_search" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="510" y="320" width="100" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_book" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;bookings, locks" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="710" y="320" width="100" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_pay" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;payments" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="910" y="320" width="100" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="db_support" value="&lt;b&gt;MongoDB&lt;/b&gt;&lt;br&gt;chat, tickets" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="1120" y="320" width="100" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="eventbus" value="&lt;b&gt;Message Broker / Event Bus (Kafka / RabbitMQ)&lt;/b&gt;&lt;br&gt;Events: BookingCreated, PaymentSucceeded, ReviewCreated..." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+      <mxGeometry x="250" y="480" width="1000" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="saga_note" value="&lt;b&gt;SAGA FLOW (Choreography)&lt;/b&gt;&lt;br align=&quot;left&quot;&gt;1. Booking emits BookingCreated&lt;br align=&quot;left&quot;&gt;2. Payment processes, emits Succeeded/Failed&lt;br align=&quot;left&quot;&gt;3. Booking updates state &amp;amp; releases Lock" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="690" y="580" width="340" height="90" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_gw_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway" target="svc_identity"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_gw_core" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway" target="svc_core"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_gw_sch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway" target="svc_search"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_gw_bk" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway" target="svc_booking"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_gw_pay" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway" target="svc_payment"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_gw_sup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway" target="svc_support"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <mxCell id="e_ca_core" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="cache" target="svc_core"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_ca_bk" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="cache" target="svc_booking"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_ca_pay" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="cache" target="svc_payment"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <mxCell id="e_id_db" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_identity" target="db_id"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_core_pg" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_core" target="db_core_pg"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_core_mg" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_core" target="db_core_mg"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_sch_db" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_search" target="db_search"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_bk_db" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_booking" target="db_book"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_pay_db" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_payment" target="db_pay"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_sup_db" style="html=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_support" target="db_support"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <mxCell id="e_ev_core" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.1;entryY=0;" edge="1" parent="1" source="svc_core" target="eventbus"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_ev_sch" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.3;entryY=0;" edge="1" parent="1" source="svc_search" target="eventbus"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_ev_bk" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="svc_booking" target="eventbus"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e_ev_pay" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.7;entryY=0;" edge="1" parent="1" source="svc_payment" target="eventbus"><mxGeometry relative="1" as="geometry" /></mxCell>
+  </root>
+</mxGraphModel>

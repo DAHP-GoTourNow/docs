@@ -9,13 +9,14 @@
 
 ## 2. Boundary de xuat cho team
 1. API Gateway.
-2. Identity Auth Service.
-3. Core Service.
-4. Payment Integration Service.
-5. Notification Chat Service.
-6. Analytics Reporting Service.
+2. Identity Service.
+3. Core Service (Catalog, Promotion, Review).
+4. Search Service.
+5. Booking Service.
+6. Payment Service.
+7. Support Service (Chat + Ticket).
 
-Core Service la tam trong giai doan dau de giam do phuc tap delivery.
+Analytics Reporting la pha sau va khong nam trong boundary v1 cua class diagram moi.
 
 ## 3. Lo trinh theo pha
 
@@ -29,17 +30,17 @@ Core Service la tam trong giai doan dau de giam do phuc tap delivery.
 - Chuyen frontend goi qua gateway.
 
 ### Pha 2
-- Refactor Catalog bo N+1.
-- Chuan hoa model tour/departure.
+- Refactor Catalog bo N+1 va chuan hoa model tour/category/destination/departure.
+- Tach Search service.
 
 ### Pha 3
-- Xay Payment service.
-- Them reservation lock Redis + TTL.
-- Dung saga booking-payment.
+- Tach Booking service.
+- Xay Payment service + idempotency.
+- Them reservation lock Redis + TTL va saga booking-payment.
 
 ### Pha 4
-- Tach chat/notification jobs.
-- Tach analytics reporting.
+- Tach Support service (chat + ticket).
+- Trien khai analytics reporting (pha sau).
 - Bo sung loyalty, wishlist, recommendation.
 
 ## 4. KPI/DoD can dat

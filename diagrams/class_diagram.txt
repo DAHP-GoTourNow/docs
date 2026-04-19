@@ -1,0 +1,178 @@
+classDiagram
+    %% ================= IDENTITY SERVICE =================
+    namespace IdentityService {
+        class User {
+            +Int id
+            +String email
+            +String full_name
+            +String phone
+            +String address
+            +Date dob
+            +Enum gender
+            +Status status
+            +register()
+            +updateProfile()
+        }
+        class SocialAccount {
+            +Int id
+            +String provider
+            +String provider_id
+        }
+        class Role {
+            +Int id
+            +String name
+        }
+        class Permission {
+            +Int id
+            +String code
+        }
+    }
+    User "1" -- "*" SocialAccount : has
+    User "*" -- "*" Role : assigned_to
+    Role "*" -- "*" Permission : includes
+
+    %% ================= CORE SERVICE (Catalog, Promotion, Review) =================
+    namespace CoreService {
+        class Tour {
+            +Int id
+            +String title
+            +String slug
+            +Int duration_days
+            +Boolean is_hot
+            +Status status
+        }
+        class TourCategory {
+            +Int id
+            +String name
+        }
+        class Destination {
+            +Int id
+            +String city_name
+            +String region
+        }
+        class Departure {
+            +Int id
+            +Date start_date
+            +Int max_slots
+            +Int booked_slots
+            +checkAvailability()
+        }
+        class PriceConfig {
+            +Decimal adult_price
+            +Decimal child_10_14_price
+            +Decimal child_4_9_price
+            +Decimal baby_price
+        }
+        class Promotion {
+            +Int id
+            +String code
+            +Decimal discount_percent
+            +Decimal max_discount
+            +Date valid_from
+            +Date valid_to
+            +Boolean is_active
+        }
+        class Review {
+            +Int id
+            +Int user_id
+            +Int rating
+            +String comment
+            +Timestamp created_at
+        }
+        class ReviewMedia {
+            +String url
+            +Enum type
+        }
+        class ReviewComment {
+            +Int user_id
+            +String content
+        }
+        class Transportation {
+            +Int id
+            +String type
+        }
+    }
+    Tour "*" -- "1" TourCategory : belongs_to
+    Tour "*" -- "*" Destination : visits
+    Tour "1" -- "*" Departure : has_schedule
+    Tour "*" -- "1" Transportation : uses
+    Departure "1" -- "1" PriceConfig : pricing
+    Tour "*" -- "*" Promotion : has_deals
+    Tour "1" -- "*" Review : has_reviews
+    Review "1" -- "*" ReviewMedia : has_media
+    Review "1" -- "*" ReviewComment : has_replies
+
+    %% ================= BOOKING SERVICE =================
+    namespace BookingService {
+        class Booking {
+            +Int id
+            +String booking_code
+            +Int user_id
+            +Status status
+            +JSONB price_snapshot
+            +JSONB promotion_snapshot
+            +Timestamp created_at
+            +calculateTotal()
+        }
+        class Passenger {
+            +String full_name
+            +Date dob
+            +Enum age_group
+            +String id_card_number
+        }
+        class BookingNote {
+            +String content
+        }
+        class Cancellation {
+            +String reason
+            +Decimal refund_amount
+            +validatePolicy()
+        }
+    }
+    Booking "1" -- "*" Passenger : includes
+    Booking "1" -- "0..1" BookingNote : has_note
+    Booking "1" -- "0..1" Cancellation : cancelled_by
+
+    %% ================= PAYMENT SERVICE =================
+    namespace PaymentService {
+        class Payment {
+            +Int id
+            +Int booking_id
+            +Decimal amount
+            +String transaction_id
+            +Status status
+        }
+        class PaymentMethod {
+            +Int id
+            +String name
+            +Boolean is_active
+        }
+    }
+    Payment "*" -- "1" PaymentMethod : via
+
+    %% ================= SUPPORT SERVICE =================
+    namespace SupportService {
+        class Conversation {
+            +Int id
+            +Int client_id
+            +Int staff_id
+        }
+        class Message {
+            +String content
+            +Timestamp sent_at
+        }
+        class SupportTicket {
+            +String title
+            +String category
+            +String content
+            +Status status
+        }
+    }
+    Conversation "1" -- "*" Message : contains
+    User "1" -- "*" SupportTicket : creates
+
+    %% Cross-boundary References
+    Booking ..> User : by_user_id
+    Booking ..> Departure : by_departure_id
+    Booking ..> Promotion : applies_code
+    SupportTicket ..> User : by_client_id
