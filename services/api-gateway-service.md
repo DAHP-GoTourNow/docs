@@ -17,7 +17,7 @@ Muc tieu:
 - Route theo path prefix:
   - /auth -> Identity Service.
   - /core -> Core Service.
-  - /search -> Search Service.
+  - /search -> Core Service (Search module).
   - /booking -> Booking Service.
   - /payment -> Payment Service.
   - /support -> Support Service.

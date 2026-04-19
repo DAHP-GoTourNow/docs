@@ -10,7 +10,7 @@
 ### 1) Thong tin
 - Ngay sprint: Day [1..10]
 - Thanh vien: [The Anh / Tuan Anh / Viet Cuong / Duc Hau]
-- Service phu trach hom nay: [Gateway/Identity/Core/Search/Booking/Payment/Support/Infra]
+- Service phu trach hom nay: [Gateway/Identity/Core/Booking/Payment/Support/Infra]
 
 ### 2) Hom qua da xong
 - [ ] Task 1:
@@ -59,8 +59,8 @@
   - Tinh trang CORS/rate-limit/security headers.
   - Danh sach PR cho merge gate hom nay.
 
-### Tuan Anh (Core/Search)
-- Uu tien: Core CRUD, Search endpoint, Core->Search event sync.
+### Tuan Anh (Core + Search module)
+- Uu tien: Core CRUD, Search endpoint, outbox-worker sync index trong Core.
 - Bat buoc bao cao:
   - Constraint schema (price/quantity/status).
   - Search latency va cache status.

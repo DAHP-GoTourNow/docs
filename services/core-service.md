@@ -1,10 +1,11 @@
-# Core Service - Catalog Promotion Review (dong bo class diagram)
+# Core Service - Catalog Promotion Review Search (dong bo class diagram)
 
 ## 1. Muc tieu
 Core Service trong ban moi chi tap trung vao:
 - Catalog (Tour, Category, Destination, Departure, PriceConfig).
 - Promotion.
 - Review.
+- Search va Discovery.
 
 Booking da tach sang Booking Service.
 
@@ -12,7 +13,6 @@ Booking da tach sang Booking Service.
 
 ### 2.1 Vi tri cua Core trong kien truc
 Core nhan request qua API Gateway va giao tiep voi:
-- Search Service (dong bo index/read model).
 - Booking Service (tra cuu tour/departure/promo).
 - Payment Service (qua Booking events).
 - Support Service (ticket lien quan tour neu can).
@@ -20,7 +20,7 @@ Core nhan request qua API Gateway va giao tiep voi:
 ### 2.2 Ly do boundary nay
 - Cohesion cao cho domain read-heavy cua san pham tour.
 - Tranh tron transaction dat tour vao cung service catalog.
-- De scale doc-lon (catalog) va ghi-lon (booking) doc lap.
+- Giam do phuc tap van hanh do khong can them service Search rieng trong giai doan dau.
 
 ## 3. Module chinh trong Core
 
@@ -29,6 +29,7 @@ Core Service chua cac module sau:
 - Catalog module.
 - Promotion module.
 - Review and rating module.
+- Search and discovery module.
 - Master data module (Transportation, basic taxonomies).
 
 ### 3.2 Danh sach CRUD day du can co
@@ -75,11 +76,36 @@ Luu y cho khach san:
 - CRUD TourTag (neu can).
 - CRUD Region mapping.
 
+#### F. Nhom Search and Discovery (nam trong Core)
+- Search endpoint cho tour full-text + filter + sort.
+- Suggestions endpoint (tour title, destination, tag).
+- Trending query endpoint (neu can).
+- Reindex endpoint noi bo (admin/internal).
+
 ### 3.3 Nghiep vu hien dai can co trong Core
 - Dynamic pricing config theo departure/age group.
 - Quan ly schedule departure va so luong toi da.
 - Promotion theo khung thoi gian va dieu kien.
 - Workflow review moderation va phan hoi.
+- Search read model va cache cho query hot.
+
+### 3.4 Thiet ke Search module trong Core
+- Ownership:
+  - Write model goc: Tour/Category/Destination/Departure/Promotion.
+  - Read model search: tours_search (hoac collection tuong duong) nam trong cung Core stack.
+- Du lieu read model toi thieu:
+  - tourId, title, slug, category, destinations, nextDeparture, minPrice, isHot, ratingAvg, status.
+- Dong bo du lieu:
+  - Trong cung service, su dung outbox + worker noi bo de cap nhat index bat dong bo.
+  - Khong can hop dong event lien service cho Search trong v1.
+- API de xuat:
+  - GET /core/search/tours?q=&category=&destination=&fromDate=&toDate=&minPrice=&maxPrice=&page=&size=&sort=
+  - GET /core/search/suggestions?q=
+  - POST /core/internal/search/reindex (chi admin/internal).
+- Toi uu hieu nang:
+  - Redis cache theo query key voi TTL ngan.
+  - Index truong text + bo loc gia/ngay/diem den.
+  - Muc tieu p95 search < 300ms khi co cache.
 
 ## 4. Quan he du lieu day du cua 1 tour
 
@@ -120,20 +146,15 @@ Luu y cho khach san:
 - Role customer/staff/admin.
 - JWT, refresh token, social login.
 
-### 5.3 Search Service
-- Nhan dong bo du lieu tour.
-- Toi uu tim kiem va bo loc.
-- Cache ket qua query read-heavy.
-
-### 5.4 Booking Service
+### 5.3 Booking Service
 - Quan ly booking transaction.
 - Passenger, cancellation, reservation lock.
 - Saga voi Payment Service.
 
-### 5.5 Payment Service
+### 5.4 Payment Service
 - Payment intent, webhook idempotent, refund.
 
-### 5.6 Support Service
+### 5.5 Support Service
 - Conversation, message, support ticket.
 
 ## 6. Techstack de xuat cho ban 1 Core Service
@@ -145,8 +166,9 @@ Luu y cho khach san:
 - Redis cho cache lookup.
 
 ### 6.2 Search va su kien
-- Event bus de dong bo sang Search Service.
-- Outbox pattern cho cap nhat index an toan.
+- Elasticsearch/OpenSearch dat cung boundary Core (khong tach thanh service).
+- Outbox pattern + worker noi bo cho cap nhat index an toan.
+- Event bus lien service chi dung cho Booking/Payment/Support.
 
 ### 6.3 Van hanh DevOps
 - Docker Compose cho local va demo.
@@ -159,10 +181,11 @@ Luu y cho khach san:
 ### Pha 1
 - Dung API Gateway + Identity + Core.
 - Hoan thien CRUD TourCategory, Tour, Destination, Departure, PriceConfig.
+- Mo endpoint search can ban trong Core.
 
 ### Pha 2
 - Them Promotion va workflow Review.
-- Dong bo index sang Search Service.
+- Toi uu index + cache search trong Core.
 
 ### Pha 3
 - Tich hop Booking Service va Payment Service.

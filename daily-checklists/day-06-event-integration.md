@@ -2,7 +2,7 @@
 
 ## Muc tieu ngay
 - Tich hop event lien service som truoc khi rap Saga.
-- Smoke test event bus Core->Search va Booking->Payment.
+- Smoke test event bus Booking->Payment va outbox-worker index trong Core.
 
 ## Checklist theo nguoi
 
@@ -13,7 +13,7 @@
 
 ### Tuan Anh
 - [ ] Core publish TourUpdated event.
-- [ ] Search consume TourUpdated va cap nhat index.
+- [ ] Core worker consume outbox TourUpdated va cap nhat index.
 - [ ] Ghi log event co correlationId.
 
 ### Viet Cuong
@@ -27,7 +27,7 @@
 - [ ] Kiem tra idempotency event consumer.
 
 ## Deliverables bat buoc cuoi ngay
-- [ ] Event Core->Search chay 1 vong thanh cong.
+- [ ] Outbox->Index trong Core chay 1 vong thanh cong.
 - [ ] Event Booking->Payment->Booking chay mock thanh cong.
 - [ ] Co dashboard/log chung minh event da di qua broker.
 

@@ -7,7 +7,7 @@
 ## Checklist theo nguoi
 
 ### The Anh
-- [ ] Chot boundary service v1: gateway, identity, core, search, booking, payment, support.
+- [ ] Chot boundary service v1: gateway, identity, core (co search module), booking, payment, support.
 - [ ] Chot convention API: status code, error format, pagination, versioning.
 - [ ] Import OpenAPI vao Postman va tao Mock Server URL.
 - [ ] Chot naming convention: camelCase, enum, date object.

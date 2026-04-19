@@ -60,7 +60,7 @@ Tai lieu nay tong hop toan bo nghiep vu WebTour theo 3 nhom:
 |---|---|---|
 | Dang nhap, phan quyen | Identity Service | Node.js, PostgreSQL/MongoDB, Redis, JWT/OAuth2 |
 | CRUD tour/category/destination/promo/review | Core Service | Node.js, PostgreSQL + MongoDB |
-| Tim kiem/filter tour | Search Service | Elasticsearch/OpenSearch, Redis |
+| Tim kiem/filter tour | Core Service (Search module) | Elasticsearch/OpenSearch, Redis |
 | Dat tour va giu cho | Booking Service | PostgreSQL, Redis Lock, RabbitMQ/Kafka |
 | Thanh toan | Payment Service | PostgreSQL, Gateway SDK, Retry + Circuit Breaker |
 | Chat + ticket ho tro | Support Service | Socket.IO, MongoDB, queue worker |
@@ -73,7 +73,7 @@ Tai lieu nay tong hop toan bo nghiep vu WebTour theo 3 nhom:
 - Van de:
   - Truy van DB truc tiep qua nhieu bo loc se cham khi traffic tang.
 - Giai phap:
-  - Tach Search read model o Elasticsearch.
+  - Dung Search read model trong Core Service (module noi bo) voi Elasticsearch/OpenSearch.
   - Redis cache trang home/tour hot.
   - CDN cho static assets.
 
@@ -125,8 +125,8 @@ Deliverables:
 
 ### Giai doan 2 - Tach Auth + Catalog (2-3 tuan)
 - Tach login/role service rieng.
-- Tach Core Service (catalog/promo/review) va Search Service rieng.
-- Them Redis cache, Elasticsearch index.
+- Mo rong Core Service gom catalog/promo/review/search module.
+- Them Redis cache, Elasticsearch index trong boundary Core.
 
 Deliverables:
 - Search latency giam ro rang.
@@ -174,7 +174,7 @@ Deliverables:
 
 ## 9. Backlog uu tien cho nhom
 - P1:
-  - API Gateway + Identity + Core + Search.
+  - API Gateway + Identity + Core (co Search module).
   - Docker Compose + CI can ban.
 - P2:
   - Booking + Payment + Saga + Redis lock.

@@ -118,8 +118,7 @@ Ly do:
 ### 5.2 Chot boundary theo nghiep vu that su dang co
 - Boundary ban dau:
   - Identity Service.
-  - Core Service (catalog + promotion + review).
-  - Search Service.
+  - Core Service (catalog + promotion + review + search module).
   - Booking Service.
   - Payment Service.
   - Support Service (chat + ticket).
@@ -164,10 +163,10 @@ Them moi bat buoc:
 - Promotion, Review, ReviewMedia, ReviewComment.
 - Chuan hoa Tour-TourCategory, Tour-Departure, Tour-Promotion.
 
-### 6.3 Search Service (moi)
+### 6.3 Search module trong Core Service
 Them moi bat buoc:
-- Tach read model cho tim kiem tour.
-- Dong bo index tu Core Service qua event.
+- Tao read model cho tim kiem tour trong cung boundary Core.
+- Dong bo index bang outbox + worker noi bo.
 - Cache ket qua tim kiem hot voi Redis.
 
 ### 6.4 Booking Service (tach rieng)
@@ -217,7 +216,7 @@ Them moi bat buoc:
 ### Pha 2 - Catalog va Core Booking can ban
 - Refactor search bo N+1.
 - Chuan hoa model tour/category/destination/departure/priceConfig.
-- Tach Search service cho read-heavy query.
+- Mo module search trong Core cho read-heavy query.
 
 ### Pha 3 - Payment + Reservation lock
 - Tach Booking service rieng.
@@ -241,7 +240,7 @@ Them moi bat buoc:
 
 ## 9. Tieu chi done cho qua trinh migration
 - Tat ca request frontend di qua Gateway, khong goi truc tiep monolith.
-- Identity, Core, Search, Booking, Payment, Support deploy doc lap.
+- Identity, Core, Booking, Payment, Support deploy doc lap.
 - Booking khong con tao du lieu mo coi va khong overbooking.
 - Payment callback khong tao duplicate transaction.
 - Co dashboard p95 latency, error rate, booking success rate.

@@ -42,7 +42,7 @@ Skill nay giup dong nghiep:
 "Toi la The Anh, Day [x]. Hay dua checklist lead trong ngay: infra/gateway/review gate/release gate."
 
 ### Tuan Anh
-"Toi la Tuan Anh, Day [x]. Hay giao viec Core/Search theo uu tien P1 va output test can nop."
+"Toi la Tuan Anh, Day [x]. Hay giao viec Core (gom Search module) theo uu tien P1 va output test can nop."
 
 ### Viet Cuong
 "Toi la Viet Cuong, Day [x]. Hay giao viec Booking focus va cach test overbooking/saga."

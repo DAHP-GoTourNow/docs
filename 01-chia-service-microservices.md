@@ -12,11 +12,10 @@ Muc tieu:
 ## 2. Kien truc service hien tai (v1)
 1. API Gateway
 2. Identity Service
-3. Core Service (Catalog, Promotion, Review)
-4. Search Service
-5. Booking Service
-6. Payment Service
-7. Support Service (Chat va Ticket)
+3. Core Service (Catalog, Promotion, Review, Search)
+4. Booking Service
+5. Payment Service
+6. Support Service (Chat va Ticket)
 
 Thanh phan ha tang chung:
 - Redis Cache (inventory lock, search cache)
@@ -43,10 +42,13 @@ Thanh phan ha tang chung:
 - API Gateway: docs/services/api-gateway-service.md
 - Identity Auth: docs/services/identity-auth-service.md
 - Core Service: docs/services/core-service.md
-- Search Service: docs/services/search-service.md
 - Booking Service: docs/services/booking-service.md
 - Payment Integration: docs/services/payment-integration-service.md
 - Support Service: docs/services/support-service.md
+
+Luu y chuyen doi:
+- Search khong tach service rieng trong v1.
+- Tai lieu cu docs/services/search-service.md duoc giu lai de redirect va tranh dut link.
 
 Tai lieu bo sung (pha sau, chua nam trong boundary v1 cua diagram moi):
 - Analytics Reporting: docs/services/analytics-reporting-service.md

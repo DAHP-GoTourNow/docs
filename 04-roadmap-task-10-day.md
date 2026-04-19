@@ -5,7 +5,7 @@
 | Nhan su | Vai tro | Trach nhiem chinh |
 |---|---|---|
 | The Anh | Dev chinh / Tech lead | Architecture, Gateway, infra compose, review gate, release control |
-| Tuan Anh | Dev phu 1 | Core Service + Search + data model |
+| Tuan Anh | Dev phu 1 | Core Service (gom Search module) + data model |
 | Viet Cuong | Dev phu 2 | Booking Service (tap trung 100%) |
 | Duc Hau | Dev bank payment | Payment Service + Support Service |
 
@@ -18,8 +18,7 @@ Quy tac:
 Lam du trong 10 ngay:
 - API Gateway
 - Identity Service (co ban)
-- Core Service (Catalog, Promotion, Review)
-- Search Service
+- Core Service (Catalog, Promotion, Review, Search)
 - Booking Service
 - Payment Service
 - Support Service (ticket + chat API)
@@ -42,8 +41,8 @@ De sau 10 ngay:
 | Day 2 | Dung skeleton service + Gateway + full infra local compose |
 | Day 3 | Identity + Core CRUD can ban + Payment intent can ban |
 | Day 4 | Core CRUD day du + Booking logic co ban + webhook verify |
-| Day 5 | Search + Reservation lock + payment status mapping |
-| Day 6 | Event integration lien service (Core/Search + Booking/Payment) |
+| Day 5 | Search module trong Core + Reservation lock + payment status mapping |
+| Day 6 | Event integration lien service (Core + Booking/Payment) |
 | Day 7 | Rap Saga booking-payment (confirm/cancel/compensation co ban) |
 | Day 8 | Test concurrent + edge case + callback duplicate |
 | Day 9 | Support service + hardening + E2E regression |
@@ -51,17 +50,17 @@ De sau 10 ngay:
 
 ## 5. Bang phan cong chi tiet theo ngay (V2)
 
-| Ngay | The Anh (Lead/Gateway/Infra) | Tuan Anh (Core/Search) | Viet Cuong (Booking Focus) | Duc Hau (Payment + Support) |
+| Ngay | The Anh (Lead/Gateway/Infra) | Tuan Anh (Core + Search module) | Viet Cuong (Booking Focus) | Duc Hau (Payment + Support) |
 |---|---|---|---|---|
 | Day 1 | Chot architecture, OpenAPI conventions, event naming, Mock API format | Chot Core entities + response mock | Chot Booking entities + response mock | Chot Payment entities + callback payload |
 | Day 2 | Setup docker compose: gateway, redis, broker, db, search | Khoi tao Core service + migration schema | Khoi tao Booking service + migration schema | Khoi tao Payment service + adapter mock |
 | Day 3 | Identity login/register/refresh + JWT + auth middleware | Core CRUD Category, Destination | Booking CRUD co ban (khong doi Core xong nhờ mock) | Payment intent API + transaction table |
 | Day 4 | Review merge + route wiring qua gateway | Core CRUD Tour, Departure, PriceConfig | Booking status machine + validation | Webhook verify signature + idempotency key |
-| Day 5 | Chuan hoa error format + traceId xuyen service | Search endpoint /search/tours + filter/sort | Passenger + reservation lock Redis TTL | Payment status mapping + retry policy can ban |
-| Day 6 | Tich hop gateway -> tat ca service + smoke test | Event publisher Core->Search (TourUpdated) | Pub BookingCreated event | Consume BookingCreated + PaymentSucceeded/Failed event |
-| Day 7 | Hardening CORS/rate-limit + review saga PR | Search cache Redis + query tuning | Rap Saga phia Booking: confirm/cancel theo payment | Rap Saga phia Payment: publish success/fail + refund API |
+| Day 5 | Chuan hoa error format + traceId xuyen service | Core Search module endpoint /core/search/tours + filter/sort | Passenger + reservation lock Redis TTL | Payment status mapping + retry policy can ban |
+| Day 6 | Tich hop gateway -> tat ca service + smoke test | Outbox + worker noi bo de update search index trong Core | Pub BookingCreated event | Consume BookingCreated + PaymentSucceeded/Failed event |
+| Day 7 | Hardening CORS/rate-limit + review saga PR | Search cache Redis + query tuning trong Core | Rap Saga phia Booking: confirm/cancel theo payment | Rap Saga phia Payment: publish success/fail + refund API |
 | Day 8 | To chuc test E2E va unblock nhanh | Ho tro promotion/review endpoint can ban | Test concurrent overbooking + compensation flow | Test callback duplicate + reconciliation log |
-| Day 9 | RC checklist + security review | Bugfix Core/Search P1 | Bugfix Booking P1 + log cleanup | Lam Support Service: ticket + chat API + pagination |
+| Day 9 | RC checklist + security review | Bugfix Core (gom Search module) P1 | Bugfix Booking P1 + log cleanup | Lam Support Service: ticket + chat API + pagination |
 | Day 10 | Final merge gate, release notes, docs freeze | Bugfix P2 + UAT support | Bugfix P2 + UAT support | Bugfix Payment/Support + go-live checklist |
 
 ## 6. Task backlog theo service (owner ro rang)
@@ -72,7 +71,7 @@ De sau 10 ngay:
 | API Gateway | Route + auth pre-check + traceId | The Anh | Viet Cuong | P1 | Tat ca route service di qua gateway |
 | Identity | register/login/refresh/logout | The Anh | Duc Hau | P1 | JWT flow chay, test auth pass |
 | Core | CRUD Category, Tour, Destination, Departure, PriceConfig | Tuan Anh | The Anh | P1 | CRUD + validation + index DB |
-| Search | /search/tours + sync event + cache | Tuan Anh | The Anh | P1 | Tim kiem + filter + sort pass |
+| Core (Search module) | /core/search/tours + suggestions + index update worker + cache | Tuan Anh | The Anh | P1 | Tim kiem + filter + sort pass |
 | Booking | Booking, Passenger, Cancellation, status flow | Viet Cuong | The Anh | P1 | Khong orphan, status dung |
 | Booking | Reservation lock Redis TTL + concurrent test | Viet Cuong | Duc Hau | P1 | Test tai cao khong overbooking |
 | Payment | payment intent + webhook verify + idempotency | Duc Hau | The Anh | P1 | Callback duplicate khong tao giao dich moi |
@@ -81,7 +80,7 @@ De sau 10 ngay:
 
 ## 7. Dependency quan trong
 1. Booking confirm phu thuoc Payment callback.
-2. Search sync phu thuoc Core event publisher.
+2. Search index sync phu thuoc Outbox + worker noi bo trong Core.
 3. Tat ca FE-BE integration phu thuoc Gateway route on dinh.
 4. Reservation lock va Saga phu thuoc Redis + Broker setup tu Day 2.
 5. Booking va Payment code song song duoc nho Mock API da chot Day 1.
@@ -115,7 +114,7 @@ De sau 10 ngay:
 ## 11. Tieu chi hoan thanh sau 10 ngay
 - Dang nhap va auth flow chay.
 - CRUD tour co ban chay qua gateway.
-- Search hoat dong voi filter/sort/cache co ban.
+- Search module trong Core hoat dong voi filter/sort/cache co ban.
 - Booking-Payment chay end-to-end co saga co ban.
 - Khong overbooking trong test concurrent.
 - Support ticket/chat API co ban chay.

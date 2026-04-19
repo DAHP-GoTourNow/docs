@@ -2,7 +2,7 @@
 
 ## 1. Role map chinh thuc
 - The Anh: Lead, gateway, infra, merge gate.
-- Tuan Anh: Core + Search.
+- Tuan Anh: Core (gom Search module).
 - Viet Cuong: Booking focus.
 - Duc Hau: Payment + Support.
 
@@ -25,8 +25,8 @@ Neu thanh vien noi "toi la [ten], viec cua toi la gi?", tro ly phai:
 ### Tuan Anh
 - Core entities va CRUD.
 - Search endpoint, filter/sort.
-- Core->Search event publisher.
-- Cache tuning va bugfix Core/Search.
+- Outbox-worker sync index trong Core.
+- Cache tuning va bugfix Core (gom search module).
 
 ### Viet Cuong
 - Booking entities, status flow.
@@ -46,7 +46,7 @@ Neu thanh vien noi "toi la [ten], viec cua toi la gi?", tro ly phai:
 - Moi thay doi contract phai duoc The Anh approve.
 
 2. File ownership lock theo service:
-- Core/Search: Tuan Anh la owner.
+- Core (gom Search module): Tuan Anh la owner.
 - Booking: Viet Cuong la owner.
 - Payment/Support: Duc Hau la owner.
 - Gateway/infra/shared: The Anh la owner.

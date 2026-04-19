@@ -10,11 +10,10 @@
 ## 2. Boundary de xuat cho team
 1. API Gateway.
 2. Identity Service.
-3. Core Service (Catalog, Promotion, Review).
-4. Search Service.
-5. Booking Service.
-6. Payment Service.
-7. Support Service (Chat + Ticket).
+3. Core Service (Catalog, Promotion, Review, Search).
+4. Booking Service.
+5. Payment Service.
+6. Support Service (Chat + Ticket).
 
 Analytics Reporting la pha sau va khong nam trong boundary v1 cua class diagram moi.
 
@@ -31,7 +30,7 @@ Analytics Reporting la pha sau va khong nam trong boundary v1 cua class diagram 
 
 ### Pha 2
 - Refactor Catalog bo N+1 va chuan hoa model tour/category/destination/departure.
-- Tach Search service.
+- Mo Search module trong Core (index + cache + filter/sort).
 
 ### Pha 3
 - Tach Booking service.
